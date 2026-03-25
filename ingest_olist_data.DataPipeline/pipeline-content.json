@@ -5,13 +5,18 @@
         "type": "GetMetadata",
         "typeProperties": {
           "datasetSettings": {
-            "type": "Binary",
+            "type": "DelimitedText",
             "typeProperties": {
               "location": {
                 "type": "LakehouseLocation",
                 "folderPath": "bronze"
-              }
+              },
+              "columnDelimiter": ",",
+              "quoteChar": "\"",
+              "escapeChar": "\\",
+              "firstRowAsHeader": true
             },
+            "schema": [],
             "connectionSettings": {
               "name": "ecommerce_lakehouse",
               "properties": {
@@ -37,7 +42,7 @@
             "enablePartitionDiscovery": false
           },
           "formatSettings": {
-            "type": "BinaryReadSettings"
+            "type": "DelimitedTextReadSettings"
           }
         },
         "policy": {
@@ -164,6 +169,29 @@
         "dependsOn": [
           {
             "activity": "Get Metadata1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "28d13e85-b61c-a14f-4941-59123ed2dfd8",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "SIlver_Notebook",
+        "dependsOn": [
+          {
+            "activity": "ForEach1",
             "dependencyConditions": [
               "Succeeded"
             ]
