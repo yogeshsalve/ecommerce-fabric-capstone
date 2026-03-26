@@ -1,0 +1,73 @@
+table dim_customers
+	lineageTag: 4ad17824-87d0-4543-ae85-61ab764ff3ab
+	sourceLineageTag: [dbo].[dim_customers]
+
+	measure 'Total Revenue' = SUM(fact_orders[payment_value])
+		lineageTag: 9d695609-603d-4a70-86fe-4fc3efa05fc6
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Orders' = DISTINCTCOUNT(fact_orders[order_id])
+		formatString: 0
+		lineageTag: 862d34e5-b13d-482e-97dd-e1036ebec3aa
+
+		changedProperty = Name
+
+	measure 'Total Customers' = DISTINCTCOUNT(fact_orders[customer_id])
+		formatString: 0
+		lineageTag: 8e546a42-cc1f-4307-b627-ba0c24868d73
+
+		changedProperty = Name
+
+	measure 'Avg Order Value' = DIVIDE([Total Revenue], [Total Orders])
+		lineageTag: 97800b47-18f7-45ef-862e-7e7b621b7b31
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_id
+		dataType: string
+		lineageTag: 34de58e0-adb7-4342-837d-c7029625985f
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: 1bd0e05d-dbed-437c-8699-5d805fe2e52b
+		sourceLineageTag: customer_unique_id
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		lineageTag: 833076e8-0691-4d03-9ff1-a2be8e2b6e49
+		sourceLineageTag: customer_city
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_state
+		dataType: string
+		lineageTag: 8e7696ce-af00-455b-9ebb-f083e3fd809a
+		sourceLineageTag: customer_state
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customers = entity
+		mode: directLake
+		source
+			entityName: dim_customers
+			schemaName: dbo
+			expressionSource: 'DirectLake - ecommerce_lakehouse'
+

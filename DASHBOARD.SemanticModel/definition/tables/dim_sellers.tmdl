@@ -1,0 +1,38 @@
+table dim_sellers
+	lineageTag: 1406b172-7f3f-4c04-9b69-dbf380aaa808
+	sourceLineageTag: [dbo].[dim_sellers]
+
+	column seller_id
+		dataType: string
+		lineageTag: b8fdf01b-e454-4b85-be3f-20bc4208d640
+		sourceLineageTag: seller_id
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_city
+		dataType: string
+		lineageTag: b052abf3-1d78-407d-b29e-359aa5db4e10
+		sourceLineageTag: seller_city
+		summarizeBy: none
+		sourceColumn: seller_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_state
+		dataType: string
+		lineageTag: 68c31cdd-3e86-4e60-ac49-717af84eac08
+		sourceLineageTag: seller_state
+		summarizeBy: none
+		sourceColumn: seller_state
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_sellers = entity
+		mode: directLake
+		source
+			entityName: dim_sellers
+			schemaName: dbo
+			expressionSource: 'DirectLake - ecommerce_lakehouse'
+

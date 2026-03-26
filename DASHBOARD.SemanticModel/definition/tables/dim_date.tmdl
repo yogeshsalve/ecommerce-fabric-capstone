@@ -1,0 +1,51 @@
+table dim_date
+	lineageTag: 01c47bef-98ed-4394-9498-b02985744bf4
+	sourceLineageTag: [dbo].[dim_date]
+
+	column order_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dc524f84-0f98-413c-a53b-c265622eedeb
+		sourceLineageTag: order_date
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: d0234734-2619-46c0-9b56-ae078d9d7f3c
+		sourceLineageTag: year
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: b6dcc3b5-5e7d-4943-97fc-1e5107013661
+		sourceLineageTag: month
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ec283c4-e4a6-4c4f-abee-29c3ac39d383
+		sourceLineageTag: day
+		summarizeBy: sum
+		sourceColumn: day
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: dbo
+			expressionSource: 'DirectLake - ecommerce_lakehouse'
+

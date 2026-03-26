@@ -1,0 +1,69 @@
+table dim_products
+	lineageTag: ebcc006e-f505-4076-931c-f1242b4e3d87
+	sourceLineageTag: [dbo].[dim_products]
+
+	column product_id
+		dataType: string
+		lineageTag: 00344401-fec7-41be-819e-0b4830a7eff5
+		sourceLineageTag: product_id
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_category_name
+		dataType: string
+		lineageTag: a75772b5-2ed1-4874-a94d-6ebf96d153e2
+		sourceLineageTag: product_category_name
+		summarizeBy: none
+		sourceColumn: product_category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_weight_g
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c7f015c-ff53-43d8-aa08-45fbb9837f23
+		sourceLineageTag: product_weight_g
+		summarizeBy: sum
+		sourceColumn: product_weight_g
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_length_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: de86319a-eee9-4206-bf56-890635b0eabb
+		sourceLineageTag: product_length_cm
+		summarizeBy: sum
+		sourceColumn: product_length_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_height_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: 045094e9-e9fc-4d94-bba6-7ad7495eef4b
+		sourceLineageTag: product_height_cm
+		summarizeBy: sum
+		sourceColumn: product_height_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_width_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: a2290382-a0bb-4d60-acd7-9b9813d0ed2f
+		sourceLineageTag: product_width_cm
+		summarizeBy: sum
+		sourceColumn: product_width_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_products = entity
+		mode: directLake
+		source
+			entityName: dim_products
+			schemaName: dbo
+			expressionSource: 'DirectLake - ecommerce_lakehouse'
+
